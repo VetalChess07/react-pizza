@@ -1,0 +1,28 @@
+.root{
+   :global{
+        .selected{
+      background-color:#282828;
+      
+     }
+   }
+   margin-top: 80px;
+   display: flex;
+   width: 100%;
+  gap: 20px;
+   align-items: center;
+   li{
+      
+     
+      border-radius: 10px;
+      background-color: #fe5f1e;
+     cursor: pointer;
+    
+      a{
+         padding: 10px 25px;
+         display: flex;
+         width: 100%;
+          color: #fff;
+      font-size: 18px;
+      }
+   }
+}

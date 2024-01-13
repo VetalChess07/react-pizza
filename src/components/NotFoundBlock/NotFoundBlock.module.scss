@@ -1,0 +1,20 @@
+.root{
+   text-align: center;
+
+   .btn{
+    background-color: #fe5f1e;
+    border-radius: 30px;
+    padding: 10px 20px;
+    min-width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    border: 1px solid transparent;
+    color: #fff;
+    font-size: 24px;
+    margin-top: 20px;
+}
+span{
+   font-size: 28px;
+}
+}

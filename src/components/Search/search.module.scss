@@ -1,0 +1,38 @@
+.search{
+   position: relative;
+   display: flex;
+   align-items: center;
+   &__input{
+   border: 2px solid #fe5f1e;
+   padding: 8px 25px ;
+   border-radius: 10px;
+   color: #282828;
+  font-weight: bold;
+  
+   &::placeholder{
+      color: #282828;
+      
+   }
+   &:focus{
+      border: 2px solid #282828;
+   }
+}
+&__delete{
+  position: absolute;
+    top: 9px;
+   right: 8px;
+    fill: #fe5f1e;
+    width: 20px;
+    height: 20px;
+    transition: all .2s;
+    &:hover{
+      fill: red
+    }
+}
+&__icon{
+   position: absolute;
+   top: 11px;
+   left: 7px;
+   fill: #fe5f1e;
+}
+}
