@@ -11,9 +11,9 @@ const PizzaBlock = ({title, imageUrl, price, sizes, types, id}) => {
 
 
   const cartItem = useSelector(selectCartItemById(id))
-  console.log(cartItem)
+ 
   const addedCount = cartItem  ? cartItem.count : 0;
-  console.log(addedCount)
+ 
   const [activeType, setActiveType] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
 

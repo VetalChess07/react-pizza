@@ -36,3 +36,31 @@
    fill: #fe5f1e;
 }
 }
+@media (max-width:540px) {
+   .search{
+     
+      &__input{
+     
+      padding: 5px 15px 5px 25px ;
+   }
+   &__delete{
+     position: absolute;
+       top: 6px;
+      right: 8px;
+       fill: #fe5f1e;
+       width: 20px;
+       height: 20px;
+       transition: all .2s;
+       &:hover{
+         fill: red
+       }
+   }
+   &__icon{
+      position: absolute;
+      top: 7px;
+      left: 7px;
+      fill: #fe5f1e;
+   }
+   }
+ }
+ 

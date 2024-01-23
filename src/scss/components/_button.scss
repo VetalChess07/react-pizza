@@ -1,6 +1,7 @@
 @import '../variables.scss';
 
 .button {
+  
   display: inline-block;
   background-color: $orange;
   border-radius: 30px;
@@ -145,4 +146,9 @@
       font-size: 16px;
     }
   }
+}
+
+
+@media (max-width:540px) {
+ 
 }

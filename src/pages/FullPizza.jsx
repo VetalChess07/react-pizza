@@ -2,11 +2,14 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { fetchPizzas } from '../redux/slices/pizzasSlice'
+import { FaArrowLeftLong } from "react-icons/fa6";
+
 
 const FullPizza = () => {
 
    const {id} = useParams()
    const navigate = useNavigate()
+   const goBack =() => navigate(-1)
 
    const [fullPizza, setFullPizza] = useState()
 
@@ -27,7 +30,7 @@ const FullPizza = () => {
     
    }, [])
 
-   console.log(fullPizza)
+  
    
    
 
@@ -36,6 +39,7 @@ const FullPizza = () => {
      {!fullPizza 
       ? <h1>Загрузка...</h1>
       :( <>
+      <FaArrowLeftLong className='arrow__goback' onClick={goBack}/>
          <img className='pizza-block__image' src={fullPizza.imageUrl} alt="" />
          <h1>{fullPizza.title}</h1>
          <h4>{fullPizza.price} p</h4>

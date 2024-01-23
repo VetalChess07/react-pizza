@@ -28,6 +28,7 @@
   &__popup {
     position: absolute;
     right: 0;
+    z-index: 10;
     margin-top: 15px;
     background: #ffffff;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.09);
@@ -63,6 +64,13 @@
 
 
 @media (max-width:580px) {
+
+  .sort__label{
+    margin-left: 5px;
+  }
+  .sort__label span,  .sort__label b{
+   font-size: 12px;
+  }
   .categories ul li{
     font-size: 14px;
     padding: 8px 20px;

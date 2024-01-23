@@ -1,5 +1,11 @@
 @import '../variables.scss';
 
+.arrow__goback{
+  width: 40px;
+  height: 40px;
+  fill: #fe5f1e;
+}
+
 .pizza-block {
   width: 100%;
   max-width: 280px;
@@ -8,7 +14,7 @@
 grid-template-columns: repeat(2, 1fr);
 grid-template-rows: minmax(50px, 1fr);
 grid-column-gap: 0px;
-grid-row-gap: 0px;
+  grid-row-gap: 10px;
 
 .full-icon{
 
@@ -102,8 +108,7 @@ a{
     display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: minmax(50px, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+
  
   }
 }
@@ -115,8 +120,7 @@ a{
     display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: minmax(50px, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+  
    
   &__price {
    
@@ -136,13 +140,12 @@ a{
 @media (max-width:680px) {
   .pizza-block{
     width: 100%;
-  max-width: none;
+  max-width: 400px;
     text-align: center;
     display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: minmax(50px, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+ 
   &__image {
     max-width: none;
   }
@@ -155,4 +158,73 @@ a{
    
   }
   }
+}
+
+@media (max-width:540px) {
+  .pizza-block {
+   
+  
+  padding: 0px 10px;
+  
+ 
+    
+  
+  
+  
+    &__title {
+      font-size: 18px;
+     
+    
+      margin-bottom: 8px;
+    
+     
+    }
+  
+    &__selector {
+      display: grid;
+      grid-column: 1/3;
+      grid-row: 3/3;
+      background-color: #f3f3f3;
+      border-radius: 10px;
+      padding: 6px;
+  
+      ul {
+        display: flex;
+        flex: 1;
+  
+        &:first-of-type {
+          margin-bottom: 6px;
+        }
+  
+        li {
+          padding: 4px;
+         
+          font-size: 12px;
+          @include noselect();
+         
+        }
+      }
+    }
+  
+   
+    &__btn{
+     
+    
+      justify-content: space-around;
+      
+    
+    
+    }
+    &__price {
+     
+      font-size: 14px;
+      line-height: 10px;
+     
+    }
+  
+  }
+  .button--add span {
+  
+    font-size: 10px;
+}
 }

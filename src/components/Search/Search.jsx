@@ -15,6 +15,8 @@ const Search = () => {
   const [value, setValue] = useState('')
   const inputRef = useRef()
 
+  console.log(value)
+
   const updateSearchValue = useCallback(
     debonce((str) =>{
      dispatch(setSearchValue(str))
@@ -28,8 +30,9 @@ const Search = () => {
   }
 
   const onClickClear = () =>{
-    dispatch(setSearchValue(value))
     setValue('')
+    dispatch(setSearchValue(''))
+   
     inputRef.current.focus()
   } 
   
@@ -37,7 +40,7 @@ const Search = () => {
    <div className={style.search}>
       <IoMdSearch  className={style.search__icon} /> 
       <input ref={inputRef} onChange={(e) => onChangeInputSearch(e) } value={value} className={style.search__input} placeholder='найти пиццу!' type="text" />
-     {setSearchValue &&  <TiDeleteOutline onClick={onClickClear}  className={style.search__delete} /> }
+     {value &&  <TiDeleteOutline onClick={onClickClear}  className={style.search__delete} /> }
    </div>
    )
 }

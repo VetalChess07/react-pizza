@@ -50,7 +50,7 @@ const Home = () => {
 
   const getPizzas = async () =>{
     
-    
+    console.log(sortBy,)
  
     // const {data} = await axios.get(`https://6592cf5bbb12970719901142.mockapi.io/pizzas?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}`)
   
@@ -66,9 +66,20 @@ const Home = () => {
   
  
   }
-  console.log(items)
  
  
+  useEffect(()=>{
+    if(window.location.search){
+      const params = qs.parse(window.location.search.substring(1))
+      console.log(params)
+      const sort = list.find(obj => obj.sortProperty === params.sortProperty)
+   
+      dispatch(setFilters({
+        ...params, sort
+      }))
+      isSearch.current = true
+    }
+  }, [])
 
   useEffect(() => {
    if(!isSearch.current){
@@ -82,18 +93,7 @@ const Home = () => {
 
   }, [categoryId, sortType, currentPage ]);
 
-  useEffect(()=>{
-    if(window.location.search){
-      const params = qs.parse(window.location.search.substring(1))
-      console.log(params)
-      const sort = list.find(obj => obj.sortProperty === params.sortProperty)
-   
-      dispatch(setFilters({
-        ...params, sort
-      }))
-      isSearch.current = true
-    }
-  }, [])
+ 
 
   useEffect(()=>{
     if(isMounted.current){

@@ -30,7 +30,7 @@ const Sort = () => {
     const handleClickOutside = (e) => {
       if (!sortRef.current.contains(e.target)) {
         setIsVisiblePopUp(false)
-        console.log('ffff')
+       
       }
     };
     document.addEventListener('click', handleClickOutside);
