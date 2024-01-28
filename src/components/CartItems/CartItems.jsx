@@ -1,10 +1,10 @@
-import React from 'react'
+import React,{memo} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 
 import { minusItem, addItem, removeItem} from '../../redux/slices/cartSlice'
 
 
-const CartItems = ({id, title, price,type, sizes, count, imageUrl}) => {
+const CartItems = memo( ({id, title, price,type, sizes, count, imageUrl}) => {
    const dispatch = useDispatch()
    
    const onClickPlus = () => {
@@ -67,6 +67,6 @@ const CartItems = ({id, title, price,type, sizes, count, imageUrl}) => {
    </div>
    </div>
   )
-}
+})
 
 export default CartItems

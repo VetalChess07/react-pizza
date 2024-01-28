@@ -1,4 +1,11 @@
 .search{
+   &__title{
+      width: 100%;
+      text-align: center;
+      span{
+         color: #fe5f1e;
+      }
+   }
    position: relative;
    display: flex;
    align-items: center;
@@ -36,6 +43,7 @@
    fill: #fe5f1e;
 }
 }
+
 @media (max-width:540px) {
    .search{
      

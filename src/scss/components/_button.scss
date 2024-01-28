@@ -1,7 +1,11 @@
 @import '../variables.scss';
 
 .button {
-  
+  &:disabled{
+    background-color: rgb(69, 66, 66);
+    pointer-events: none;
+   
+  }
   display: inline-block;
   background-color: $orange;
   border-radius: 30px;

@@ -162,14 +162,8 @@ a{
 
 @media (max-width:540px) {
   .pizza-block {
-   
   
   padding: 0px 10px;
-  
- 
-    
-  
-  
   
     &__title {
       font-size: 18px;
@@ -226,5 +220,75 @@ a{
   .button--add span {
   
     font-size: 10px;
+}
+}
+
+@media (max-width:540px) {
+  .pizza-block {
+    grid-row-gap: 0px;
+  padding: 0px 5px;
+    &__title {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+  
+    &__selector {
+      background-color: #f3f3f3;
+      border-radius: 5px;
+      padding: 4px;
+  
+      ul {
+        display: flex;
+        flex: 1;
+  
+        &:first-of-type {
+          margin-bottom: 6px;
+        }
+  
+        li {
+          padding: 4px;
+         
+          font-size: 8px;
+         
+         
+        }
+      }
+    }
+  
+   
+    &__btn{
+     
+    
+      justify-content: space-around;
+      
+    
+    
+    }
+    &__price {
+     
+      font-size: 8px;
+      line-height: 2px;
+     
+    }
+  
+  }
+  .button--add i{
+   font-size: 10px;
+   width: 14px;
+   height: 14px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+  }
+  .pizza-block__btn{
+    padding: 2px 5px;
+    svg{
+      width: 7px;
+      height: 7px;
+    }
+  }
+  .button--add span {
+  
+    font-size: 8px;
 }
 }

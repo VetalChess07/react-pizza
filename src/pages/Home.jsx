@@ -14,8 +14,10 @@ import {list} from "../components/Sort/Sort";
 import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Sceleton from "../components/PizzaBlock/Skeleton";
 import Pagination from '../components/Pagination/Pagination';
+import { fetchCountPizzaIsCategory } from '../redux/slices/pizzasSlice'
 
 import {SearchContext} from '../App'
+import SearchNotItem from '../components/Search/SearchNotItem'
 
 const Home = () => {
   const navigate = useNavigate() 
@@ -26,10 +28,15 @@ const Home = () => {
   const {items, status}= useSelector(selectPizza)   
   const sortType = sort.sortProperty
 
+  const [countIsCategory, setCountIsCategory] = useState([])
+
+ 
+
  // const sortType = useSelector(state=> state.filter.sort.sortProperty)
   const onClickCategory =(id)=>{
     console.log(id)
     dispatch(setCategoryId(id))
+    dispatch(setCurrentPageCount(1))
   }
   const onChangePage =(number) =>{
     dispatch(setCurrentPageCount(number ))
@@ -47,6 +54,16 @@ const Home = () => {
   // const search = searchValue ? `&search=${searchValue}`:'';
   const category = categoryId > 0 ? `category=${categoryId}` : '';
   const order = sortType.includes('-')?'asc':'desc';
+
+  
+
+  const fetchPizzasCountIsCategory = async () =>{
+    const {data} = await axios.get(`https://6592cf5bbb12970719901142.mockapi.io/pizzas?${category}`)
+    setCountIsCategory(data)
+    console.log(data)
+  }
+  console.log(countIsCategory)
+ 
 
   const getPizzas = async () =>{
     
@@ -67,6 +84,7 @@ const Home = () => {
  
   }
  
+  
  
   useEffect(()=>{
     if(window.location.search){
@@ -85,6 +103,7 @@ const Home = () => {
    if(!isSearch.current){
    
     getPizzas()
+    fetchPizzasCountIsCategory()
    }
 
    isSearch.current = false
@@ -111,16 +130,22 @@ const Home = () => {
    
   },  [categoryId, sortType, currentPage ])
 
+  
+
   const pizzas =   items.filter(obj => obj.title.toLowerCase().includes(searchValue.toLowerCase())? true : false ).map((obj) => <PizzaBlock key={obj.id} {...obj} />)
   const skeletons = [...new Array(4)].map((_, index) => <Sceleton key={index} />)
+  console.log(currentPage, onChangePage)
+  
+  
   return (
      <>
       <div className="content__top">
+      
         <Category value={categoryId} onClickCategory={onClickCategory} /> 
         <Sort  />
      </div>
      <h2 className="content__title">Все пиццы</h2>
-     
+      {pizzas.length === 0 && <SearchNotItem/> }
       {status === 'error' 
       ? 
       <div className='content__error'>
@@ -136,12 +161,16 @@ const Home = () => {
       :<div className="content__items">
        { status ==='loading'
          ? skeletons
-         : pizzas 
+         :
+         
+         pizzas
+         
           }
       </div>
       }
-   
-     <Pagination currentPage={currentPage} onChangePage={onChangePage}/>
+      {countIsCategory.length > 4 &&  <Pagination currentPage={ currentPage} onChangePage={onChangePage}/>}
+     
+    
      </>
   )
 }

@@ -1,21 +1,42 @@
-import React, { useCallback, useContext, useRef, useState } from 'react'
+import React, { useCallback, useContext, useRef, useState, memo, useEffect } from 'react'
 import { TiDeleteOutline } from "react-icons/ti";
 import { IoMdSearch } from "react-icons/io";
 import style from './search.module.scss'
 
 import debonce from 'lodash.debounce'
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSearchValue } from '../../redux/slices/filterSlice';
+import { selectFilter } from '../../redux/slices/filterSlice';
 
-const Search = () => {
+
+
+
+const Search = memo( () => {
+  const {searchValue} = useSelector(selectFilter)
+  const [value, setValue] = useState(searchValue)
+  const inputRef = useRef()
+  console.log( "searchValue" + searchValue,  value)
+
   const dispatch = useDispatch()
 
- 
-  const [value, setValue] = useState('')
-  const inputRef = useRef()
+  useEffect(()=>{
+    console.log('ffff')
+    setValue('')
+    dispatch(setSearchValue(''))
+  },[])
 
-  console.log(value)
+  useEffect(()=>{
+   console.log('fff')
+    setValue('')
+    dispatch(setSearchValue(''))
+  },[setSearchValue])
+ 
+  
+ const onChangeInputSearch =(e)=>{
+    setValue(e.target.value)
+    updateSearchValue(e.target.value)
+  }
 
   const updateSearchValue = useCallback(
     debonce((str) =>{
@@ -24,10 +45,7 @@ const Search = () => {
     }, 500),
     [],
   )
-  const onChangeInputSearch =(e)=>{
-    setValue(e.target.value)
-    updateSearchValue(e.target.value)
-  }
+  
 
   const onClickClear = () =>{
     setValue('')
@@ -43,6 +61,6 @@ const Search = () => {
      {value &&  <TiDeleteOutline onClick={onClickClear}  className={style.search__delete} /> }
    </div>
    )
-}
+})
 
 export default Search

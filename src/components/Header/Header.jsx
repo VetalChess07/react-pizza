@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react'
+import React, {useRef, useEffect, memo} from 'react'
 
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -8,7 +8,7 @@ import { selectCart } from "../../redux/slices/cartSlice"
 
 import Search from '../Search/Search'
 
-const Header = () => {
+const Header = memo( () => {
   const {items, totalPrice} = useSelector(selectCart)
 
   const isMounted = useRef(false)
@@ -84,6 +84,6 @@ const Header = () => {
         </div>
       </div>
   )
-}
+})
 
 export default Header

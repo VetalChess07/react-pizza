@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 
@@ -7,13 +7,15 @@ import {clearItems} from '../redux/slices/cartSlice'
 import CartEmpty from '../components/CartEmpty/CartEmpty'
 
 import {selectCart} from "../redux/slices/cartSlice"
+import Modal from '../components/Modal/Modal'
+import PayBlock from '../components/PayBlock/PayBlock'
 
 const Cart = () => {
 
   const dispatch = useDispatch()
   const {items, totalPrice} = useSelector(selectCart)
   const totalCount = items.reduce((sum, item) => sum + item.count, 0)
-
+  const [modalOpen, setModalOpen] = useState(false)
 
    const navigate = useNavigate()
    const goBack =()=>  navigate(-1)
@@ -23,11 +25,14 @@ const Cart = () => {
   
    }
 
+
   return (
    <>{
     items.length === 0
     ?   <CartEmpty/>
-    : <div className="container content container--cart">
+    : <>
+       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}><PayBlock/></Modal>
+    <div className="container content container--cart">
    <div className="cart">
      <div className="cart__top">
        <h2 className="content__title"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,13 +72,17 @@ const Cart = () => {
 
            <span >Вернуться назад</span>
          </Link>
-         <div className="button pay-btn">
-           <span>Оплатить сейчас</span>
+         <div  onClick={()=> setModalOpen(!modalOpen) } className="button pay-btn">
+           <span >Оплатить сейчас</span>
+       
          </div>
        </div>
      </div>
    </div>
- </div>
+      </div>
+    </>
+    
+    
    }</>
   
   )
