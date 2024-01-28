@@ -27,7 +27,7 @@ const PayBlock = () => {
   const [wishes, setWishes] = useState('')
   const [addressCafe, setAddressCafe] = useState(sitys[0].addressPizza)
   const [addressSity, setAddressSity] = useState(sitys[0].cityName)
-  const [time, setTime] = useState('10:00')
+  const [time, setTime] = useState('')
  
   const [descOrder, setDescOrder] = useState(false)
   
@@ -42,6 +42,8 @@ const PayBlock = () => {
    const [nameDirty, setNameDirty] = useState(false)
    const [emailError, setEmailError] = useState('Не коректный email! Пример email: vas9I07@gmail.com')
    const [emailDirty, setEmailDirty] = useState(false)
+   const [telError, setTelError] = useState('Вы ввели неверный телефон')
+   const [telDirty, setTelDirty] = useState(false)
    const [timeError, setTimeError] =useState('Мы работает с 5:00 до 23:00')
    const [timeDirty, setTimeDirty] = useState(false)
 
@@ -74,6 +76,9 @@ const PayBlock = () => {
       case 'time':
         setTimeDirty(true)  
         break
+      case 'tel':
+        setTelDirty(true)  
+        break
     }
    }
 
@@ -94,7 +99,7 @@ const PayBlock = () => {
     const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
     if(!EMAIL_REGEXP.test(String(e).toLowerCase())){
       console.log('errror')
-      setEmailError(`Не коректный email! Пример email: vas9I07@gmail.com`)
+      setEmailError(`Не коректный email! Пример email: vas9I07@gmail.com! Вы должны ввести или телефон или email - это помогает нам улучшать наш сервис`)
     } else{
       
       setEmailError('')
@@ -102,7 +107,16 @@ const PayBlock = () => {
 
    }
    const hadlerInputTel = (e) =>{
+    
+    
     setTel(prev => /\d+/.test(Number(e)) ? e.trim() : prev)
+    
+    if(e.length == 11){
+     
+     setTelError('') 
+    } else{
+      setTelError(`Вы ввели не коректный номер! Вы должны ввести или телефон или email - это помогает нам улучшать наш сервис.`)
+    }
 
    } 
    const hadlerTime = (e) =>{
@@ -117,6 +131,15 @@ const PayBlock = () => {
       setTime(e)
       setTimeError('Мы работает с 5:00 до 23:00')
     }
+   }
+   const hadlerwishes = (e) =>{
+    
+    setWishes(e)
+   
+    if(e.length >= 140){
+      setWishes(wishes.slice(0, 139))
+    }
+   
    }
 
   useEffect(()=>{
@@ -224,7 +247,7 @@ const PayBlock = () => {
       </div>}
 
       <label htmlFor="name">
-        {(nameDirty && nameError) && <span className={style.error}>  {nameError} </span>  } <br />
+        {(nameDirty && nameError) && <><span className={style.error}>  {nameError} </span> <br /></>  } 
         <span className={style.required}>*</span> Как к вам обращаться? <br />
         <input  onBlur={e => blurHandler(e)} name='name' id='name'value={name} onChange={(e) => hadlerInputName(e.target.value)}   placeholder='Ваше имя' type="text" />
       </label>
@@ -241,7 +264,7 @@ const PayBlock = () => {
      
       { delivery &&
          <label htmlFor="address">
-        Введите адрес доставки <br />
+        <span className={style.required}>*</span> Введите адрес доставки <br />
         <input  id='address'value={address} onChange={(e) => setAddress(e.target.value)}  required placeholder='Введите свой адрес доставки' type="text" /> <br />
         <span>Город {addressSity} {address}</span>
       </label>
@@ -256,25 +279,25 @@ const PayBlock = () => {
       
       
        <br />
-        Введите ваш email <br />
+        Введите ваш email. Введите свой номер телефона или email <br />
         <input onBlur={(e) => blurHandler(e)} name='email' id='email' value={email} onChange={(e) => hadlerInputEmail(e.target.value)}  placeholder='Введите свой email' type="email" />
       </label>
 
       <label htmlFor="tel">
-      {email ? '' : <> { tel ?'' :<span className={style.error}> "Вы ввели неверный телефон" </span>   }</>  } <br />
-        Введите ваш телефон в формате 79094762396<br />
-        <input onBlur={(e) => blurHandler(e)} id='tel' value={tel} onChange={(e) => hadlerInputTel(e.target.value)}   placeholder='Введите свой телефон' type="tel"  />
+      {email ? '' : <> { (telDirty && telError) && <span className={style.error}> {telError} </span>   }</>  } <br />
+        Введите ваш телефон в формате 79094762396. Введите свой номер телефона или email <br />
+        <input onBlur={(e) => blurHandler(e)} id='tel' value={tel} onChange={(e) => hadlerInputTel(e.target.value)} name='tel'   placeholder='Введите свой телефон' type="tel"  />
       </label>
 
       <label htmlFor="time">
      
       {(timeDirty && timeError) && <span className={style.error}> {timeError} </span>  } <br />
-        {delivery ? `В какое время вам нужно будет доставить пиццу: ${time}` : `Время когда приду в наше заведение ${time}` } <br />
+      <span className={style.required}>*</span>  {delivery ? `В какое время вам нужно будет доставить пиццу: ${time}` : `Время когда приду в наше заведение ${time}` } <br />
       <input onChange={(e) => hadlerTime(e.target.value) } value={time} onBlur={(e)=> blurHandler(e)} type="time" id="time" name="time"  /> <br />
       
       </label>
 
-      <textarea value={wishes} onChange={(e)=> setWishes(e.target.value)} name="" id="" cols="30" rows="10"></textarea>
+      <textarea maxLength="140"  value={wishes} onChange={(e)=> hadlerwishes(e.target.value)} name="" id=""  rows="7"></textarea>
        
        <span onClick={()=> setDescOrder(!descOrder)} className={style.span__close}>{descOrder ? "Скрыть":"Показать подробные данные заказ" }</span>
        {descOrder && <div className={style.desc__order}>
@@ -285,7 +308,7 @@ const PayBlock = () => {
             <p>Мой email: {email}</p>
             <p>Мой телефон: {tel}</p>
             <p>Время когда {delivery && address.length ? `мне должен прийти мой заказ ${time}` :`я буду в вашем заведение ${time}`}</p>
-            <div>
+            <div className={style.desc__order__item}>
               <h3>Заказ</h3>
               {items.map(item => 
                   <p>{item.count} * {item.title}, размер: {item.sizes}, тесто: {item.type}, цена: {item.price}</p>
